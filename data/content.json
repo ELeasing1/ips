@@ -1,8 +1,23 @@
 {
   "version": 1,
-  "updated": null,
-  "repo": "",
-  "branch": "",
-  "works": [],
+  "updated": "2026-10-29T07:51:09.467Z",
+  "repo": "ELeasing1/ips",
+  "branch": "main",
+  "works": [
+    {
+      "id": "wmvt8uargpp2i",
+      "title": "Тест",
+      "category": "power",
+      "object": "Частный дом",
+      "place": "Иркутск",
+      "date": "2026-10",
+      "text": "тестовая инфа",
+      "images": [
+        "uploads/works/2026-10-29-ax896h.jpg"
+      ],
+      "cover": 0,
+      "hidden": false
+    }
+  ],
   "reviews": []
 }
