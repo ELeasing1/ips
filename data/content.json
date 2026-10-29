@@ -1,42 +1,8 @@
 {
   "version": 1,
-  "updated": "2026-10-29T07:53:11.399Z",
+  "updated": "2026-10-29T07:53:43.885Z",
   "repo": "ELeasing1/ips",
   "branch": "main",
-  "works": [
-    {
-      "id": "wmvt8uargpp2i",
-      "title": "Тест",
-      "category": "power",
-      "object": "Частный дом",
-      "place": "Иркутск",
-      "date": "2026-10",
-      "text": "тестовая инфа",
-      "images": [
-        "uploads/works/2026-10-29-ax896h.jpg"
-      ],
-      "cover": 0,
-      "hidden": false
-    }
-  ],
-  "reviews": [
-    {
-      "id": "rmvt8xc94qd6b",
-      "image": "",
-      "name": "АНДРЕЙ ТАНГАРОВ",
-      "object": "АНДРЕЙ",
-      "date": "2026-10",
-      "text": "АНДРЕЙ ТЕСТ",
-      "hidden": false
-    },
-    {
-      "id": "rmvt8vyy3zam4",
-      "image": "",
-      "name": "Тест",
-      "object": "тестовое",
-      "date": "2026-10",
-      "text": "тестовый отзыв",
-      "hidden": false
-    }
-  ]
+  "works": [],
+  "reviews": []
 }
