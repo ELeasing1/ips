@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Админка — ИП Смолянинов</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'%3E%3Crect width='44' height='44' rx='12' fill='%231A6CF0'/%3E%3Cpath d='M29 12H18a5 5 0 0 0 0 10h8a5 5 0 0 1 0 10H15' fill='none' stroke='white' stroke-width='3.4' stroke-linecap='round'/%3E%3Ccircle cx='31' cy='12' r='3' fill='white'/%3E%3Ccircle cx='13' cy='32' r='3' fill='white'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g-950:#0B0E13;--g-900:#11151C;--g-800:#1C222D;--g-700:#283040;--g-600:#3A4354;
+  --s-400:#8B95A8;--s-300:#B3BCCB;--s-200:#D9DEE7;--s-100:#ECEFF4;--paper:#F3F5F9;
+  --b-700:#0B47B8;--b-600:#0F58D6;--b-500:#1A6CF0;--b-400:#3D8BFF;--b-300:#7AB0FF;--b-200:#C4DAFF;--b-100:#EAF2FF;
+  --ink:#121620;--muted:#5A6476;--danger:#E5484D;
+  --ff-d:'Unbounded','Manrope',system-ui,sans-serif;
+  --ff:'Manrope',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --btn-grad:linear-gradient(180deg,#2C7DFF 0%,#1462E6 100%);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font:16px/1.55 var(--ff);color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
+[hidden]{display:none!important}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--b-300);outline-offset:2px}
+.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.sprite{position:absolute;width:0;height:0;overflow:hidden}
+
+/* шапка */
+.top{position:sticky;top:0;z-index:40;background:var(--g-900);color:#fff;box-shadow:0 10px 30px -18px rgba(0,0,0,.6)}
+.top-in{max-width:1120px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px;color:#fff;text-decoration:none;margin-right:auto}
+.brand svg{width:40px;height:40px}
+.brand b{display:block;font:700 15px/1 var(--ff-d);letter-spacing:.04em}
+.brand small{display:block;font-size:12px;color:var(--s-400);margin-top:5px;font-weight:600}
+.top-r{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.repo-chip{font:600 12.5px/1 ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--s-300);padding:9px 10px;border-radius:9px;background:rgba(255,255,255,.06);max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tbtn{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 12px;border-radius:10px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:#fff;font-weight:700;font-size:13.5px;text-decoration:none;cursor:pointer;transition:background .2s}
+.tbtn:hover{background:rgba(255,255,255,.13)}
+.tbtn .i{width:16px;height:16px}
+
+/* общее */
+.wrap{max-width:1120px;margin:0 auto;padding:28px 16px 150px}
+.card{background:#fff;border:1px solid var(--s-100);border-radius:24px;box-shadow:0 30px 60px -40px rgba(12,40,100,.35)}
+h1{font:700 clamp(22px,3vw,30px)/1.15 var(--ff-d);letter-spacing:-.02em;margin:0 0 6px}
+h2{font:700 20px/1.2 var(--ff-d);letter-spacing:-.01em;margin:0}
+p{margin:0}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.center{text-align:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;height:48px;padding:0 20px;border-radius:13px;border:0;font-weight:700;font-size:15px;line-height:1;cursor:pointer;text-decoration:none;white-space:nowrap;transition:transform .2s var(--ease),box-shadow .2s,background .2s,border-color .2s,color .2s}
+.btn .i{width:18px;height:18px}
+.btn-primary{background:var(--btn-grad);color:#fff;box-shadow:0 10px 24px -10px rgba(26,108,240,.8)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 14px 30px -10px rgba(26,108,240,.9)}
+.btn-ghost{background:#fff;color:var(--ink);border:1.5px solid var(--s-200)}
+.btn-ghost:hover{border-color:var(--b-400);color:var(--b-600)}
+.btn-lg{height:56px;font-size:16px;border-radius:15px}
+.btn-block{width:100%}
+.btn:disabled{opacity:.6;cursor:wait;transform:none}
+.link{background:none;border:0;padding:0;color:var(--b-600);font-weight:700;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.fld{display:flex;flex-direction:column;gap:7px;font-size:13.5px;font-weight:800;color:var(--g-600);min-width:0}
+.fld small{font-weight:600;color:var(--s-400)}
+.fld input,.fld select,.fld textarea,.inp{width:100%;height:50px;padding:0 14px;border-radius:13px;border:1.5px solid var(--s-200);background:#fff;font-weight:500;font-size:15.5px;color:var(--ink);transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none}
+.fld select{background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23566074' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center;padding-right:40px;cursor:pointer}
+.fld textarea,textarea.inp{height:auto;min-height:84px;padding:12px 14px;line-height:1.5;resize:vertical}
+.fld input:focus,.fld select:focus,.fld textarea:focus,.inp:focus{outline:none;border-color:var(--b-500);box-shadow:0 0 0 4px rgba(26,108,240,.14)}
+.inp{height:44px;font-size:14.5px}
+.chk{display:flex;align-items:center;gap:10px;font-size:14.5px;font-weight:600;cursor:pointer}
+.chk input{width:20px;height:20px;accent-color:var(--b-500);flex:none}
+.err{padding:12px 14px;border-radius:12px;background:#FDECEC;color:#B4232A;font-size:14px;font-weight:600}
+
+/* вход */
+.login{max-width:540px;margin:5vh auto 0;padding:clamp(24px,4vw,40px);display:flex;flex-direction:column;gap:18px}
+.login .lock{display:flex;gap:10px;align-items:flex-start;font-size:13px}
+.login .lock .i{width:16px;height:16px;margin-top:2px;color:var(--b-500)}
+.login-ic{width:64px;height:64px;filter:drop-shadow(0 12px 24px rgba(26,108,240,.45))}
+
+/* панель */
+.hello{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.found{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:16px 18px;border-radius:18px;background:var(--b-100);border:1px solid var(--b-200);margin-bottom:18px;font-size:14.5px}
+.found .i{color:var(--b-600)}
+.found p{flex:1;min-width:220px}
+.tabs{display:inline-flex;gap:4px;padding:5px;border-radius:16px;background:#fff;border:1px solid var(--s-200);margin-bottom:18px;max-width:100%;overflow-x:auto}
+.tab{display:flex;align-items:center;gap:8px;border:0;background:none;padding:12px 18px;border-radius:12px;font-weight:700;font-size:15px;color:var(--g-600);cursor:pointer;white-space:nowrap}
+.tab .i{width:18px;height:18px}
+.tab b{font-size:12px;padding:3px 8px;border-radius:20px;background:var(--s-100);color:var(--g-600)}
+.tab[aria-selected=true]{background:var(--g-900);color:#fff}
+.tab[aria-selected=true] b{background:var(--b-500);color:#fff}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+.panel-head p{color:var(--muted);max-width:600px}
+.list{display:grid;gap:12px}
+.row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px;align-items:center;padding:12px;border-radius:18px;background:#fff;border:1px solid var(--s-100);animation:in .35s var(--ease);transition:border-color .2s}
+@keyframes in{from{opacity:0;transform:translateY(8px)}}
+.row:hover{border-color:var(--b-200)}
+.row.is-off{background:#FAFBFC}
+.row.is-off .thumb{opacity:.5}
+.thumb{width:104px;height:78px;border-radius:12px;background:var(--s-100);display:block;border:0;padding:0;overflow:hidden;cursor:pointer;flex:none}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb.ph{display:grid;place-items:center;color:var(--s-400);cursor:default}
+.row-main b{display:block;font-size:16px;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row-main small{display:block;color:var(--muted);font-size:13.5px;margin-top:3px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.chips:empty{display:none}
+.chip{font:800 10.5px/1 var(--ff);letter-spacing:.07em;text-transform:uppercase;padding:5px 8px;border-radius:7px}
+.chip.new{background:var(--b-100);color:var(--b-600)}
+.chip.mod{background:#FFF4DB;color:#8A5A00}
+.chip.off{background:var(--s-100);color:var(--g-600)}
+.row-act{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.ib{width:40px;height:40px;border-radius:11px;border:1.5px solid var(--s-200);background:#fff;color:var(--g-700);display:grid;place-items:center;cursor:pointer;transition:border-color .2s,color .2s,background .2s}
+.ib:hover:not(:disabled){border-color:var(--b-400);color:var(--b-600)}
+.ib.danger:hover:not(:disabled){border-color:var(--danger);color:var(--danger)}
+.ib:disabled{opacity:.3;cursor:default}
+.ib .i{width:18px;height:18px}
+.row.rv{align-items:start}
+.row.rv .thumb{width:112px;height:150px}
+.rv-fields{display:grid;grid-template-columns:1fr 1fr 170px;gap:8px}
+.rv-fields textarea{grid-column:1/-1;min-height:64px}
+.drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:30px 20px;border-radius:20px;border:2px dashed var(--b-300);background:#fff;color:var(--g-700);cursor:pointer;transition:background .2s,border-color .2s}
+.drop:hover,.drop.over{background:var(--b-100);border-color:var(--b-500)}
+.drop .i{width:36px;height:36px;color:var(--b-500);margin-bottom:4px}
+.drop b{font-size:16px}
+.drop small{color:var(--muted);font-size:13.5px}
+.drop.sm{flex-direction:row;padding:16px;gap:12px}
+.drop.sm .i{width:26px;height:26px;margin:0}
+.rv-tools{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 16px}
+.empty{padding:44px 20px;text-align:center;border-radius:20px;border:1.5px dashed var(--s-200);color:var(--muted);background:#fff}
+.empty .i{width:42px;height:42px;color:var(--s-300);margin:0 auto 10px;display:block}
+.empty b{display:block;color:var(--ink);font-size:16px;margin-bottom:4px}
+
+/* полоса публикации */
+.pubbar{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:50;width:min(780px,calc(100% - 24px));display:flex;align-items:center;gap:14px;padding:12px 12px 12px 18px;border-radius:20px;background:var(--g-900);color:#fff;box-shadow:0 24px 60px -16px rgba(0,0,0,.55);animation:up .35s var(--ease)}
+@keyframes up{from{transform:translate(-50%,30px);opacity:0}}
+.pubbar>div{flex:1;min-width:0}
+.pubbar b{display:block;font-size:15px}
+.pubbar small{display:block;color:var(--s-300);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pb-dot{width:10px;height:10px;border-radius:50%;background:#FFB020;box-shadow:0 0 0 4px rgba(255,176,32,.2);flex:none}
+.pubbar .btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.25)}
+
+/* модальные окна */
+.modal{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:12px;visibility:hidden;opacity:0;transition:opacity .25s,visibility .25s}
+.modal.open{visibility:visible;opacity:1}
+.modal-bd{position:absolute;inset:0;background:rgba(8,11,16,.6);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.modal-card{position:relative;width:min(720px,100%);max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px);overflow:auto;background:#fff;border-radius:24px;padding:clamp(20px,3.5vw,32px);display:flex;flex-direction:column;gap:16px;transform:translateY(16px);transition:transform .3s var(--ease);overscroll-behavior:contain}
+.modal.open .modal-card{transform:none}
+.modal-card.sm{width:min(460px,100%);text-align:center;align-items:center}
+.x{position:absolute;top:14px;right:14px;width:40px;height:40px;border-radius:12px;border:0;background:var(--paper);display:grid;place-items:center;cursor:pointer}
+.x:hover{background:var(--s-100)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.full{grid-column:1/-1}
+.pics{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.pics:empty{display:none}
+.pic{position:relative;aspect-ratio:4/3;border-radius:12px;overflow:hidden;background:var(--s-100);border:2px solid transparent}
+.pic img{width:100%;height:100%;object-fit:cover;display:block}
+.pic.cover{border-color:var(--b-500)}
+.pic-badge{position:absolute;left:6px;top:6px;padding:4px 7px;border-radius:7px;background:var(--b-500);color:#fff;font:800 10px/1 var(--ff);letter-spacing:.06em;text-transform:uppercase;display:none}
+.pic.cover .pic-badge{display:block}
+.pic-act{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;gap:4px;padding:6px;background:linear-gradient(0deg,rgba(11,14,19,.75),transparent)}
+.pic-act button{width:30px;height:30px;border-radius:8px;border:0;background:rgba(255,255,255,.93);color:var(--ink);display:grid;place-items:center;cursor:pointer}
+.pic-act button:disabled{opacity:.35;cursor:default}
+.pic-act .i{width:15px;height:15px}
+.mfoot{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap}
+.prog{width:100%;height:6px;border-radius:6px;background:var(--s-100);overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--b-500),var(--b-300));transition:width .3s}
+.pm-ic{width:68px;height:68px;border-radius:50%;display:grid;place-items:center;background:var(--b-100);color:var(--b-600)}
+.pm-ic .i{width:32px;height:32px}
+.pm-ic.ok{background:var(--btn-grad);color:#fff;box-shadow:0 0 0 10px rgba(26,108,240,.12)}
+.pm-ic.bad{background:#FDECEC;color:var(--danger)}
+.spin{width:32px;height:32px;border-radius:50%;border:3px solid var(--b-200);border-top-color:var(--b-500);animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.help ol{padding-left:22px;margin:0;display:grid;gap:10px}
+.help li b{color:var(--ink)}
+.help .note{padding:12px 14px;border-radius:12px;background:var(--b-100);font-size:14px}
+.toast{position:fixed;left:50%;top:78px;transform:translate(-50%,-10px);z-index:90;opacity:0;pointer-events:none;padding:12px 18px;border-radius:14px;background:var(--g-900);color:#fff;font-weight:700;font-size:14.5px;box-shadow:0 20px 40px -12px rgba(0,0,0,.45);transition:opacity .25s,transform .3s var(--ease);max-width:calc(100% - 24px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast.bad{background:#B4232A}
+
+@media (max-width:760px){
+  .row{grid-template-columns:auto minmax(0,1fr)}
+  .row-act{grid-column:1/-1}
+  .thumb{width:84px;height:64px}
+  .row.rv{grid-template-columns:1fr}
+  .row.rv .thumb{width:100%;height:240px}
+  .rv-fields,.grid2{grid-template-columns:1fr}
+  .pubbar{flex-wrap:wrap}
+  .pubbar>div{flex-basis:calc(100% - 30px)}
+  .pubbar .btn{flex:1}
+  .repo-chip,.tbtn span{display:none}
+  .panel-head .btn{width:100%}
+}
+</style>
+</head>
+<body>
+
+<svg class="sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="lgLogo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4A94FF"/><stop offset="1" stop-color="#0F58D6"/></linearGradient></defs>
+  <symbol id="logoMark" viewBox="0 0 44 44"><rect width="44" height="44" rx="12" fill="url(#lgLogo)"/><path d="M29 12H18a5 5 0 0 0 0 10h8a5 5 0 0 1 0 10H15" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/><circle cx="31" cy="12" r="3" fill="#fff"/><circle cx="13" cy="32" r="3" fill="#fff"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.38 3.62a2.12 2.12 0 1 1 3 3L7.37 18.64a2 2 0 0 1-.85.5l-2.87.84a.5.5 0 0 1-.62-.62l.84-2.87a2 2 0 0 1 .5-.85z"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-eyeoff" viewBox="0 0 24 24"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.53 13.53 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><path d="M2 2l20 20"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M11.5 2.3a.6.6 0 0 1 1 0l2.6 5.3 5.8.8a.6.6 0 0 1 .3 1l-4.2 4.1 1 5.8a.6.6 0 0 1-.8.6L12 17.2l-5.2 2.7a.6.6 0 0 1-.8-.6l1-5.8-4.2-4.1a.6.6 0 0 1 .3-1l5.8-.8z"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5"/><path d="M12 3v12"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.09-3.09a2 2 0 0 0-2.82 0L6 21"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-ext" viewBox="0 0 24 24"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M14.54 21.69a.5.5 0 0 0 .94-.02l6.5-19a.5.5 0 0 0-.64-.64l-19 6.5a.5.5 0 0 0-.02.94l7.93 3.18a2 2 0 0 1 1.11 1.11z"/><path d="m21.85 2.15-10.94 10.94"/></symbol>
+</svg>
+
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="#" aria-label="Админка">
+      <svg><use href="#logoMark"/></svg>
+      <span><b>АДМИНКА</b><small>сайт ИП Смолянинов</small></span>
+    </a>
+    <div class="top-r" id="topR" hidden>
+      <span class="repo-chip" id="repoChip" title="Репозиторий на GitHub"></span>
+      <a class="tbtn" id="openSite" href="#" target="_blank" rel="noopener"><svg class="i"><use href="#i-ext"/></svg><span>Открыть сайт</span></a>
+      <button class="tbtn" id="reloadBtn" type="button" title="Загрузить актуальные данные с GitHub"><svg class="i"><use href="#i-refresh"/></svg><span>Обновить</span></button>
+      <button class="tbtn" id="helpBtn" type="button"><svg class="i"><use href="#i-help"/></svg><span>Помощь</span></button>
+      <button class="tbtn" id="logoutBtn" type="button"><svg class="i"><use href="#i-logout"/></svg><span>Выйти</span></button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ВХОД -->
+  <section class="login card" id="login">
+    <svg class="login-ic"><use href="#logoMark"/></svg>
+    <div>
+      <h1>Вход в админку</h1>
+      <p class="muted">Здесь вы добавляете на сайт выполненные работы и отзывы. Изменения сохраняются прямо в ваш репозиторий на GitHub — сайт обновляется сам.</p>
+    </div>
+    <label class="fld">Репозиторий на GitHub
+      <input id="lRepo" autocomplete="off" spellcheck="false" placeholder="логин/название-репозитория">
+      <small>Например: <b>smolyaninov/site</b> — это часть адреса github.com/<b>smolyaninov/site</b></small>
+    </label>
+    <label class="fld">Ключ доступа (токен GitHub)
+      <input id="lToken" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…">
+      <small>Как получить ключ — <button class="link" type="button" data-help>в инструкции</button>.</small>
+    </label>
+    <label class="chk"><input type="checkbox" id="lRemember" checked>Запомнить на этом устройстве</label>
+    <p class="err" id="lErr" role="alert" hidden></p>
+    <button class="btn btn-primary btn-lg btn-block" id="lGo" type="button">Войти</button>
+    <p class="muted lock"><svg class="i"><use href="#i-lock"/></svg><span>Ключ хранится только в этом браузере и отправляется только на GitHub. На чужих компьютерах снимайте галочку «Запомнить».</span></p>
+  </section>
+
+  <!-- ПАНЕЛЬ -->
+  <section id="app" hidden>
+    <div class="hello">
+      <div><h1>Управление сайтом</h1><p class="muted" id="lastUpd"></p></div>
+    </div>
+
+    <div class="found" id="found" hidden>
+      <svg class="i"><use href="#i-folder"/></svg>
+      <p id="foundText"></p>
+      <button class="btn btn-ghost" id="foundAdd" type="button">Добавить в список</button>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="Разделы">
+      <button class="tab" role="tab" type="button" data-tab="works" aria-selected="true"><svg class="i"><use href="#i-image"/></svg>Выполненные работы <b id="cntW">0</b></button>
+      <button class="tab" role="tab" type="button" data-tab="reviews" aria-selected="false"><svg class="i"><use href="#i-chat"/></svg>Отзывы <b id="cntR">0</b></button>
+    </div>
+
+    <div id="pWorks" role="tabpanel">
+      <div class="panel-head">
+        <p>Каждая работа — карточка на сайте: название, описание и одна или несколько фотографий. Порядок в списке = порядок на сайте.</p>
+        <button class="btn btn-primary" id="addWork" type="button"><svg class="i"><use href="#i-plus"/></svg>Добавить работу</button>
+      </div>
+      <div class="list" id="worksList"></div>
+    </div>
+
+    <div id="pReviews" role="tabpanel" hidden>
+      <label class="drop" id="rvDrop">
+        <input type="file" id="rvFiles" accept="image/*" multiple hidden>
+        <svg class="i"><use href="#i-upload"/></svg>
+        <b>Перетащите сюда скриншоты или фото отзывов</b>
+        <small>или нажмите, чтобы выбрать файлы. Можно сразу несколько — каждый станет отдельным отзывом.</small>
+      </label>
+      <div class="rv-tools">
+        <button class="btn btn-ghost" id="addTextReview" type="button"><svg class="i"><use href="#i-plus"/></svg>Отзыв без фото (только текст)</button>
+      </div>
+      <div class="list" id="reviewsList"></div>
+    </div>
+  </section>
+</main>
+
+<!-- ПОЛОСА ПУБЛИКАЦИИ -->
+<div class="pubbar" id="pubbar" hidden>
+  <span class="pb-dot"></span>
+  <div><b>Есть неопубликованные изменения</b><small id="pbSum"></small></div>
+  <button class="btn btn-ghost" id="discard" type="button">Отменить</button>
+  <button class="btn btn-primary" id="publish" type="button"><svg class="i"><use href="#i-send"/></svg>Опубликовать на сайт</button>
+</div>
+
+<!-- РЕДАКТОР РАБОТЫ -->
+<div class="modal" id="wModal" role="dialog" aria-modal="true" aria-labelledby="wmTitle" aria-hidden="true">
+  <div class="modal-bd" data-close></div>
+  <div class="modal-card">
+    <button class="x" type="button" data-close aria-label="Закрыть"><svg class="i"><use href="#i-x"/></svg></button>
+    <h2 id="wmTitle">Новая работа</h2>
+    <div class="grid2">
+      <label class="fld full">Название работы *
+        <input id="wTitle" maxlength="120" placeholder="Например: Электрика в коттедже под ключ">
+      </label>
+      <label class="fld">Направление
+        <select id="wCat">
+          <option value="power">Электромонтаж</option>
+          <option value="video">Видеонаблюдение</option>
+          <option value="net">СКС (кабельные сети)</option>
+          <option value="complex">Комплексный проект</option>
+        </select>
+      </label>
+      <label class="fld">Тип объекта
+        <input id="wObject" list="objList" maxlength="60" placeholder="Частный дом">
+      </label>
+      <label class="fld">Город / район
+        <input id="wPlace" maxlength="60" placeholder="Иркутск">
+      </label>
+      <label class="fld">Когда выполнено
+        <input id="wDate" type="month" placeholder="ГГГГ-ММ">
+      </label>
+      <label class="fld full">Описание
+        <textarea id="wText" rows="3" maxlength="700" placeholder="Что сделали и какую задачу решили для клиента"></textarea>
+      </label>
+    </div>
+    <div class="fld">Фотографии * <small>Обложка — фото с синей рамкой. Сделать обложкой — кнопка со звёздочкой.</small></div>
+    <label class="drop sm" id="wDrop">
+      <input type="file" id="wFiles" accept="image/*" multiple hidden>
+      <svg class="i"><use href="#i-upload"/></svg>
+      <span><b>Добавить фото</b><br><small>перетащите сюда или нажмите, можно несколько</small></span>
+    </label>
+    <div class="pics" id="wPics"></div>
+    <label class="chk"><input type="checkbox" id="wHidden">Не показывать на сайте (черновик)</label>
+    <p class="err" id="wErr" role="alert" hidden></p>
+    <div class="mfoot">
+      <button class="btn btn-ghost" type="button" data-close>Отмена</button>
+      <button class="btn btn-primary" id="wSave" type="button"><svg class="i"><use href="#i-check"/></svg>Готово</button>
+    </div>
+    <p class="muted small center">Работа попадёт на сайт после кнопки «Опубликовать на сайт» внизу экрана.</p>
+  </div>
+</div>
+<datalist id="objList"><option value="Квартира"><option value="Частный дом"><option value="Коттедж"><option value="Офис"><option value="Магазин"><option value="Кафе"><option value="Склад"><option value="Производство"><option value="Гараж"><option value="Дача"></datalist>
+
+<!-- ПУБЛИКАЦИЯ -->
+<div class="modal" id="pModal" role="dialog" aria-modal="true" aria-labelledby="pmTitle" aria-hidden="true">
+  <div class="modal-bd"></div>
+  <div class="modal-card sm">
+    <div class="pm-ic" id="pmIc"><span class="spin"></span></div>
+    <h2 id="pmTitle">Публикуем…</h2>
+    <p class="muted" id="pmText"></p>
+    <div class="prog" id="pmProg"><i></i></div>
+    <div class="mfoot" id="pmBtns" hidden style="justify-content:center"></div>
+  </div>
+</div>
+
+<!-- ПОМОЩЬ -->
+<div class="modal" id="hModal" role="dialog" aria-modal="true" aria-labelledby="hmTitle" aria-hidden="true">
+  <div class="modal-bd" data-close></div>
+  <div class="modal-card help">
+    <button class="x" type="button" data-close aria-label="Закрыть"><svg class="i"><use href="#i-x"/></svg></button>
+    <h2 id="hmTitle">Как пользоваться</h2>
+    <ol>
+      <li><b>Работа:</b> вкладка «Выполненные работы» → «Добавить работу» → название, описание, фото → «Готово».</li>
+      <li><b>Отзыв:</b> вкладка «Отзывы» → перетащите скриншоты или нажмите на рамку и выберите файлы. Подписи (имя, объект, текст) — по желанию.</li>
+      <li><b>Порядок:</b> стрелки ↑ ↓ — как в списке, так и на сайте. Глаз — скрыть или показать, корзина — удалить.</li>
+      <li><b>Публикация:</b> всё, что вы сделали, сначала копится как черновик. Нажмите <b>«Опубликовать на сайт»</b> — через 1–2 минуты изменения появятся на сайте.</li>
+      <li><b>Фото с телефона</b> можно загружать прямо отсюда: админка сама уменьшит их до нужного размера.</li>
+    </ol>
+    <p class="note"><b>Ключ доступа (токен)</b> создаётся на GitHub: аватар справа вверху → Settings → Developer settings → Personal access tokens → <b>Fine-grained tokens</b> → Generate new token. В «Repository access» выберите только репозиторий сайта, в «Permissions» → Repository permissions → <b>Contents: Read and write</b>. Если срок действия ключа закончится — создайте новый и войдите заново.</p>
+    <div class="mfoot"><button class="btn btn-primary" type="button" data-close>Понятно</button></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+  'use strict';
+  const $ = (s, c = document) => c.querySelector(s);
+  const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+  // Адрес API можно подменить для тестов: localStorage.sm_api_base / sm_raw_base
+  const API = (localStorage.getItem('sm_api_base') || 'https://api.github.com').replace(/\/$/, '');
+  const RAW = (localStorage.getItem('sm_raw_base') || '').replace(/\/$/, '');
+  const IMG_RE = /\.(jpe?g|png|webp|gif|avif)$/i;
+  const CAT = { power: 'Электромонтаж', video: 'Видеонаблюдение', net: 'СКС', complex: 'Комплексный проект' };
+  const MONTHS = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'];
+  const LIMITS = { works: { side: 1800, q: 0.82 }, reviews: { side: 2200, q: 0.85 } };
+
+  const S = {
+    token: '', repo: '', branch: 'main',
+    content: null, original: '', contentSha: null,
+    pending: new Map(),   // путь → base64 нового фото
+    previews: new Map(),  // путь → локальная ссылка для превью
+    found: []
+  };
+
+  /* ---------- мелочи ---------- */
+  const esc = t => String(t == null ? '' : t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const fmtDate = d => { const m = /^(\d{4})-(\d{2})/.exec(d || ''); return m ? MONTHS[+m[2] - 1] + ' ' + m[1] : ''; };
+  const uid = p => p + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  const pad = n => String(n).padStart(2, '0');
+  const today = () => { const d = new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); };
+  const ym = () => today().slice(0, 7);
+  const titleFromFile = p => p.split('/').pop().replace(/\.[^.]+$/, '').replace(/^\d{4}[-_.]\d{2}([-_.]\d{2})?[-_ ]*/, '').replace(/_+/g, ' ').trim();
+  let toastT;
+  function toast(msg, bad) {
+    const t = $('#toast'); t.textContent = msg; t.classList.toggle('bad', !!bad); t.classList.add('show');
+    clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), bad ? 5000 : 2800);
+  }
+  const b64 = {
+    fromBytes(u8) { let s = ''; for (let i = 0; i < u8.length; i += 0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000)); return btoa(s); },
+    fromText(t) { return b64.fromBytes(new TextEncoder().encode(t)); },
+    toText(s) { const bin = atob(String(s).replace(/\s/g, '')); const u8 = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i); return new TextDecoder().decode(u8); }
+  };
+
+  /* ---------- хранение входа ---------- */
+  function savedLogin() { try { return JSON.parse(localStorage.getItem('sm_admin') || sessionStorage.getItem('sm_admin') || 'null'); } catch (e) { return null; } }
+  function saveLogin(remember) {
+    const v = JSON.stringify({ repo: S.repo, token: S.token });
+    try { if (remember) { localStorage.setItem('sm_admin', v); sessionStorage.removeItem('sm_admin'); } else { sessionStorage.setItem('sm_admin', v); localStorage.removeItem('sm_admin'); } } catch (e) {}
+  }
+  function forgetLogin() { try { localStorage.removeItem('sm_admin'); sessionStorage.removeItem('sm_admin'); } catch (e) {} }
+
+  /* ---------- GitHub API ---------- */
+  async function gh(method, path, body) {
+    let r;
+    try {
+      r = await fetch(API + path, {
+        method, cache: 'no-store',
+        headers: Object.assign({ Authorization: 'Bearer ' + S.token, Accept: 'application/vnd.github+json' }, body ? { 'Content-Type': 'application/json' } : {}),
+        body: body ? JSON.stringify(body) : undefined
+      });
+    } catch (e) { const err = new Error('network'); err.status = 0; throw err; }
+    if (!r.ok) {
+      let msg = ''; try { msg = (await r.json()).message || ''; } catch (e) {}
+      const err = new Error(msg || r.statusText); err.status = r.status; throw err;
+    }
+    return r.status === 204 ? null : r.json();
+  }
+  function explain(e) {
+    const m = (e && e.message) || '';
+    if (!e || e.status === 0) return 'Нет связи с GitHub. Проверьте интернет и попробуйте ещё раз.';
+    if (e.status === 401) return 'Ключ доступа не подошёл. Проверьте, что скопировали его целиком и что срок его действия не закончился.';
+    if (e.status === 403 && /rate limit/i.test(m)) return 'GitHub временно ограничил запросы. Подождите несколько минут и попробуйте снова.';
+    if (e.status === 403) return 'У ключа нет права записи. В настройках токена выберите этот репозиторий и разрешение «Contents: Read and write».';
+    if (e.status === 404) return 'Репозиторий не найден или у ключа нет к нему доступа. Проверьте название в формате «логин/репозиторий».';
+    if (e.status === 409) return 'Репозиторий пустой. Сначала загрузите в него файлы сайта (index.html и admin.html).';
+    if (e.status === 422) return 'GitHub не принял изменения: ' + m;
+    return 'Ошибка GitHub (' + e.status + '): ' + m;
+  }
+  const repoPath = p => '/repos/' + S.repo + p;
+  async function snapshot() {
+    const ref = await gh('GET', repoPath('/git/ref/heads/' + encodeURIComponent(S.branch)));
+    const commit = await gh('GET', repoPath('/git/commits/' + ref.object.sha));
+    const tree = await gh('GET', repoPath('/git/trees/' + commit.tree.sha + '?recursive=1'));
+    return { head: ref.object.sha, treeSha: commit.tree.sha, items: (tree.tree || []).filter(x => x.type === 'blob') };
+  }
+
+  function guessRepo() {
+    const h = location.hostname;
+    if (!/\.github\.io$/i.test(h)) return '';
+    const owner = h.split('.')[0], seg = location.pathname.split('/').filter(Boolean)[0];
+    return owner + '/' + (seg && !/\.html?$/i.test(seg) ? seg : owner + '.github.io');
+  }
+  function siteUrl() {
+    if (/\.github\.io$/i.test(location.hostname)) return new URL('./', location.href).href;
+    const [o, r] = S.repo.split('/');
+    if (!o || !r) return '#';
+    return r.toLowerCase() === (o + '.github.io').toLowerCase() ? 'https://' + r.toLowerCase() + '/' : 'https://' + o.toLowerCase() + '.github.io/' + r + '/';
+  }
+  function imgUrl(p) {
+    if (S.previews.has(p)) return S.previews.get(p);
+    if (RAW) return RAW + '/' + encodeURI(p);
+    return 'https://raw.githubusercontent.com/' + S.repo + '/' + encodeURIComponent(S.branch) + '/' + encodeURI(p);
+  }
+
+  /* ---------- данные ---------- */
+  function normalize(c) {
+    c = c && typeof c === 'object' ? c : {};
+    return {
+      version: 1, updated: c.updated || null, repo: c.repo || '', branch: c.branch || '',
+      works: (Array.isArray(c.works) ? c.works : []).map(w => ({
+        id: w.id || uid('w'), title: w.title || '', category: CAT[w.category] ? w.category : 'power',
+        object: w.object || '', place: w.place || '', date: w.date || '', text: w.text || '',
+        images: Array.isArray(w.images) ? w.images.filter(Boolean) : [], cover: +w.cover || 0, hidden: !!w.hidden
+      })),
+      reviews: (Array.isArray(c.reviews) ? c.reviews : []).map(r => ({
+        id: r.id || uid('r'), image: r.image || '', name: r.name || '', object: r.object || '',
+        date: r.date || '', text: r.text || '', hidden: !!r.hidden
+      }))
+    };
+  }
+  function refs(c) {
+    const s = new Set();
+    c.works.forEach(w => w.images.forEach(p => s.add(p)));
+    c.reviews.forEach(r => { if (r.image) s.add(r.image); });
+    return s;
+  }
+  const dirty = () => S.content && JSON.stringify(S.content) !== S.original;
+  function origMap() {
+    const o = JSON.parse(S.original), m = new Map();
+    o.works.concat(o.reviews).forEach(x => m.set(x.id, JSON.stringify(x)));
+    return m;
+  }
+  function status(item, om) { return !om.has(item.id) ? 'new' : (om.get(item.id) !== JSON.stringify(item) ? 'mod' : ''); }
+
+  async function loadContent() {
+    const snap = await snapshot();
+    const paths = new Set(snap.items.map(x => x.path));
+    const cj = snap.items.find(x => x.path === 'data/content.json');
+    let raw = null;
+    if (cj) {
+      const blob = await gh('GET', repoPath('/git/blobs/' + cj.sha));
+      try { raw = JSON.parse(b64.toText(blob.content)); } catch (e) { raw = null; toast('Файл data/content.json повреждён — начнём с пустого списка', true); }
+    }
+    S.contentSha = cj ? cj.sha : null;
+    S.content = normalize(raw);
+    S.original = JSON.stringify(S.content);
+    S.pending.clear();
+    const used = refs(S.content);
+    S.found = [...paths].filter(p => /^uploads\/(works|reviews)\//.test(p) && IMG_RE.test(p) && !used.has(p));
+    if (!paths.has('index.html')) toast('В репозитории нет index.html — загрузите файлы сайта, иначе публиковать некуда.', true);
+    render();
+  }
+
+  /* ---------- вход ---------- */
+  async function login(repo, token, remember, silent) {
+    S.repo = repo.trim().replace(/^https?:\/\/(www\.)?github\.com\//i, '').replace(/\.git$/i, '').replace(/^\/+|\/+$/g, '');
+    S.token = token.trim();
+    if (!/^[\w.-]+\/[\w.-]+$/.test(S.repo)) throw Object.assign(new Error('repo'), { status: 404 });
+    const info = await gh('GET', '/repos/' + S.repo);
+    if (info.permissions && info.permissions.push === false) throw Object.assign(new Error('no push'), { status: 403 });
+    S.repo = info.full_name || S.repo;
+    S.branch = info.default_branch || 'main';
+    await loadContent();
+    if (!silent) saveLogin(remember);
+    $('#login').hidden = true; $('#app').hidden = false; $('#topR').hidden = false;
+    $('#repoChip').textContent = S.repo;
+    $('#openSite').href = siteUrl();
+  }
+  async function doLogin() {
+    const btn = $('#lGo'), err = $('#lErr');
+    err.hidden = true; btn.disabled = true; btn.textContent = 'Подключаемся…';
+    try { await login($('#lRepo').value, $('#lToken').value, $('#lRemember').checked); }
+    catch (e) { err.textContent = explain(e); err.hidden = false; }
+    finally { btn.disabled = false; btn.textContent = 'Войти'; }
+  }
+  $('#lGo').addEventListener('click', doLogin);
+  [$('#lRepo'), $('#lToken')].forEach(i => i.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); }));
+
+  /* ---------- отрисовка ---------- */
+  function render() {
+    const c = S.content, om = origMap();
+    $('#cntW').textContent = c.works.length;
+    $('#cntR').textContent = c.reviews.length;
+    $('#lastUpd').textContent = c.updated ? 'Последняя публикация: ' + new Date(c.updated).toLocaleString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'На сайте пока нет ни работ, ни отзывов — добавьте первые.';
+
+    const wl = $('#worksList');
+    wl.innerHTML = c.works.length ? c.works.map((w, i) => {
+      const cover = w.images[Math.min(w.cover, w.images.length - 1)];
+      const meta = [CAT[w.category], w.object, w.place, fmtDate(w.date), w.images.length + ' фото'].filter(Boolean).map(esc).join(' · ');
+      const st = status(w, om);
+      return '<div class="row' + (w.hidden ? ' is-off' : '') + '" data-id="' + w.id + '">' +
+        (cover ? '<button class="thumb" type="button" data-a="edit" aria-label="Редактировать"><img src="' + esc(imgUrl(cover)) + '" alt="" loading="lazy"></button>' : '<span class="thumb ph"><svg class="i"><use href="#i-image"/></svg></span>') +
+        '<div class="row-main"><b>' + esc(w.title || 'Без названия') + '</b><small>' + meta + '</small><span class="chips">' +
+        (w.hidden ? '<span class="chip off">Скрыта</span>' : '') + (st === 'new' ? '<span class="chip new">Новая · не опубликована</span>' : st === 'mod' ? '<span class="chip mod">Изменена · не опубликована</span>' : '') + '</span></div>' +
+        actions(i, c.works.length, w.hidden, true) + '</div>';
+    }).join('') : '<div class="empty"><svg class="i"><use href="#i-image"/></svg><b>Пока нет ни одной работы</b>Нажмите «Добавить работу», загрузите фото объекта и подпишите его.</div>';
+
+    const rl = $('#reviewsList');
+    rl.innerHTML = c.reviews.length ? c.reviews.map((r, i) => {
+      const st = status(r, om);
+      return '<div class="row rv' + (r.hidden ? ' is-off' : '') + '" data-id="' + r.id + '">' +
+        (r.image ? '<a class="thumb" href="' + esc(imgUrl(r.image)) + '" target="_blank" rel="noopener" title="Открыть фото"><img src="' + esc(imgUrl(r.image)) + '" alt="" loading="lazy"></a>' : '<span class="thumb ph" title="Отзыв без фото"><svg class="i"><use href="#i-chat"/></svg></span>') +
+        '<div class="row-main"><div class="rv-fields">' +
+        '<input class="inp" data-f="name" maxlength="60" placeholder="Имя клиента" value="' + esc(r.name) + '" aria-label="Имя клиента">' +
+        '<input class="inp" data-f="object" maxlength="80" placeholder="Объект или услуга" value="' + esc(r.object) + '" aria-label="Объект или услуга">' +
+        '<input class="inp" data-f="date" type="month" placeholder="ГГГГ-ММ" value="' + esc(r.date) + '" aria-label="Месяц">' +
+        '<textarea class="inp" data-f="text" maxlength="1500" placeholder="' + (r.image ? 'Текст отзыва — необязательно, если всё видно на фото' : 'Текст отзыва *') + '" aria-label="Текст отзыва">' + esc(r.text) + '</textarea>' +
+        '</div><span class="chips">' + (r.hidden ? '<span class="chip off">Скрыт</span>' : '') +
+        (st === 'new' ? '<span class="chip new">Новый · не опубликован</span>' : st === 'mod' ? '<span class="chip mod">Изменён · не опубликован</span>' : '') + '</span></div>' +
+        actions(i, c.reviews.length, r.hidden, false) + '</div>';
+    }).join('') : '<div class="empty"><svg class="i"><use href="#i-chat"/></svg><b>Отзывов пока нет</b>Перетащите в рамку выше скриншоты переписки с клиентами или фото письменных отзывов.</div>';
+
+    $$('.thumb img').forEach(img => img.addEventListener('error', function onErr() {
+      img.removeEventListener('error', onErr);
+      const p = img.closest('[data-id]') && findPath(img.closest('[data-id]').dataset.id);
+      if (p) img.src = siteUrl() + encodeURI(p);
+    }));
+
+    const left = S.found.filter(p => !refs(S.content).has(p));
+    $('#found').hidden = !left.length;
+    $('#foundText').textContent = 'В папках uploads нашлось ' + left.length + ' фото, загруженных вручную. На сайте они уже показываются, но без подписей — добавьте их в список, чтобы подписать.';
+    updateBar();
+  }
+  function findPath(id) {
+    const w = S.content.works.find(x => x.id === id); if (w) return w.images[Math.min(w.cover, w.images.length - 1)];
+    const r = S.content.reviews.find(x => x.id === id); return r && r.image;
+  }
+  function actions(i, n, hidden, editable) {
+    return '<div class="row-act">' +
+      '<button class="ib" type="button" data-a="up" title="Выше" aria-label="Выше"' + (i === 0 ? ' disabled' : '') + '><svg class="i"><use href="#i-up"/></svg></button>' +
+      '<button class="ib" type="button" data-a="down" title="Ниже" aria-label="Ниже"' + (i === n - 1 ? ' disabled' : '') + '><svg class="i"><use href="#i-down"/></svg></button>' +
+      (editable ? '<button class="ib" type="button" data-a="edit" title="Редактировать" aria-label="Редактировать"><svg class="i"><use href="#i-edit"/></svg></button>' : '') +
+      '<button class="ib" type="button" data-a="hide" title="' + (hidden ? 'Показать на сайте' : 'Скрыть с сайта') + '" aria-label="' + (hidden ? 'Показать на сайте' : 'Скрыть с сайта') + '"><svg class="i"><use href="#' + (hidden ? 'i-eye' : 'i-eyeoff') + '"/></svg></button>' +
+      '<button class="ib danger" type="button" data-a="del" title="Удалить" aria-label="Удалить"><svg class="i"><use href="#i-trash"/></svg></button></div>';
+  }
+  function updateBar() {
+    const d = dirty();
+    $('#pubbar').hidden = !d;
+    if (!d) return;
+    const o = JSON.parse(S.original), add = [0, 0], del = [0, 0], mod = [0, 0];
+    ['works', 'reviews'].forEach((k, j) => {
+      const om = new Map(o[k].map(x => [x.id, JSON.stringify(x)])), nm = new Map(S.content[k].map(x => [x.id, JSON.stringify(x)]));
+      nm.forEach((v, id) => { if (!om.has(id)) add[j]++; else if (om.get(id) !== v) mod[j]++; });
+      om.forEach((v, id) => { if (!nm.has(id)) del[j]++; });
+    });
+    const part = (a, w, r) => (a[0] ? w + ': ' + a[0] : '') + (a[0] && a[1] ? ', ' : '') + (a[1] ? r + ': ' + a[1] : '');
+    const s = [add[0] + add[1] ? 'добавлено (' + part(add, 'работ', 'отзывов') + ')' : '', mod[0] + mod[1] ? 'изменено (' + part(mod, 'работ', 'отзывов') + ')' : '', del[0] + del[1] ? 'удалено (' + part(del, 'работ', 'отзывов') + ')' : ''].filter(Boolean).join(' · ');
+    $('#pbSum').textContent = s || 'изменён порядок';
+  }
+
+  /* ---------- действия в списках ---------- */
+  function listAction(kind) {
+    return e => {
+      const b = e.target.closest('[data-a]'); if (!b) return;
+      const row = b.closest('[data-id]'), arr = S.content[kind], i = arr.findIndex(x => x.id === row.dataset.id);
+      if (i < 0) return;
+      const a = b.dataset.a;
+      if (a === 'up' && i > 0) [arr[i - 1], arr[i]] = [arr[i], arr[i - 1]];
+      if (a === 'down' && i < arr.length - 1) [arr[i + 1], arr[i]] = [arr[i], arr[i + 1]];
+      if (a === 'hide') arr[i].hidden = !arr[i].hidden;
+      if (a === 'edit' && kind === 'works') { openWork(arr[i].id); return; }
+      if (a === 'del') {
+        const name = kind === 'works' ? '«' + (arr[i].title || 'работу') + '»' : 'этот отзыв';
+        if (!confirm('Удалить ' + name + '? Фото удалятся с сайта после публикации.')) return;
+        arr.splice(i, 1);
+      }
+      render();
+    };
+  }
+  $('#worksList').addEventListener('click', listAction('works'));
+  $('#reviewsList').addEventListener('click', listAction('reviews'));
+  $('#reviewsList').addEventListener('input', e => {
+    const f = e.target.dataset.f; if (!f) return;
+    const row = e.target.closest('[data-id]'), r = S.content.reviews.find(x => x.id === row.dataset.id);
+    if (!r) return;
+    r[f] = e.target.value;
+    const st = status(r, origMap());
+    $('.chips', row).innerHTML = (r.hidden ? '<span class="chip off">Скрыт</span>' : '') +
+      (st === 'new' ? '<span class="chip new">Новый · не опубликован</span>' : st === 'mod' ? '<span class="chip mod">Изменён · не опубликован</span>' : '');
+    updateBar();
+  });
+
+  /* ---------- вкладки ---------- */
+  $$('.tab').forEach(t => t.addEventListener('click', () => {
+    $$('.tab').forEach(x => x.setAttribute('aria-selected', x === t));
+    $('#pWorks').hidden = t.dataset.tab !== 'works';
+    $('#pReviews').hidden = t.dataset.tab !== 'reviews';
+  }));
+
+  /* ---------- обработка фото ---------- */
+  async function processImage(file, kind) {
+    if (/hei[cf]/i.test(file.type) || /\.hei[cf]$/i.test(file.name)) throw new Error('«' + file.name + '» в формате HEIC. Сохраните фото как JPG (iPhone: Настройки → Камера → Форматы → «Наиболее совместимый»).');
+    if (file.type && !/^image\//.test(file.type)) throw new Error('«' + file.name + '» — не изображение.');
+    let src;
+    try { src = await createImageBitmap(file, { imageOrientation: 'from-image' }); }
+    catch (e) {
+      src = await new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = () => rej(new Error('Не удалось открыть «' + file.name + '». Попробуйте другой файл (JPG или PNG).')); im.src = URL.createObjectURL(file); });
+    }
+    const { side, q } = LIMITS[kind];
+    const w0 = src.width || src.naturalWidth, h0 = src.height || src.naturalHeight;
+    const k = Math.min(1, side / Math.max(w0, h0)), w = Math.max(1, Math.round(w0 * k)), h = Math.max(1, Math.round(h0 * k));
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, w, h); x.imageSmoothingQuality = 'high'; x.drawImage(src, 0, 0, w, h);
+    if (src.close) src.close();
+    const blob = await new Promise(r => c.toBlob(r, 'image/jpeg', q));
+    if (!blob) throw new Error('Не удалось обработать «' + file.name + '».');
+    const path = 'uploads/' + kind + '/' + today() + '-' + Math.random().toString(36).slice(2, 8) + '.jpg';
+    S.pending.set(path, b64.fromBytes(new Uint8Array(await blob.arrayBuffer())));
+    S.previews.set(path, URL.createObjectURL(blob));
+    return path;
+  }
+  async function addFiles(files, kind, onPath) {
+    files = [...files].filter(Boolean);
+    if (!files.length) return;
+    let ok = 0;
+    for (let n = 0; n < files.length; n++) {
+      toast('Обрабатываем фото ' + (n + 1) + ' из ' + files.length + '…');
+      try { onPath(await processImage(files[n], kind)); ok++; }
+      catch (e) { toast(e.message, true); await new Promise(r => setTimeout(r, 1800)); }
+    }
+    if (ok) toast(ok === 1 ? 'Фото добавлено' : 'Добавлено фото: ' + ok);
+  }
+  function dropZone(zone, input, handler) {
+    input.addEventListener('change', () => { handler(input.files); input.value = ''; });
+    ['dragenter', 'dragover'].forEach(ev => zone.addEventListener(ev, e => { e.preventDefault(); zone.classList.add('over'); }));
+    ['dragleave', 'drop'].forEach(ev => zone.addEventListener(ev, e => { e.preventDefault(); zone.classList.remove('over'); }));
+    zone.addEventListener('drop', e => handler(e.dataTransfer.files));
+  }
+
+  /* ---------- отзывы ---------- */
+  dropZone($('#rvDrop'), $('#rvFiles'), files => addFiles(files, 'reviews', path => {
+    S.content.reviews.unshift({ id: uid('r'), image: path, name: '', object: '', date: ym(), text: '', hidden: false });
+    render();
+  }));
+  $('#addTextReview').addEventListener('click', () => {
+    S.content.reviews.unshift({ id: uid('r'), image: '', name: '', object: '', date: ym(), text: '', hidden: false });
+    render();
+    const t = $('#reviewsList textarea'); if (t) t.focus();
+  });
+
+  /* ---------- редактор работы ---------- */
+  let W = null, wIsNew = false;
+  function openWork(id) {
+    const w = id ? S.content.works.find(x => x.id === id) : null;
+    wIsNew = !w;
+    W = w ? JSON.parse(JSON.stringify(w)) : { id: uid('w'), title: '', category: 'power', object: '', place: '', date: ym(), text: '', images: [], cover: 0, hidden: false };
+    $('#wmTitle').textContent = wIsNew ? 'Новая работа' : 'Редактирование работы';
+    $('#wTitle').value = W.title; $('#wCat').value = W.category; $('#wObject').value = W.object;
+    $('#wPlace').value = W.place; $('#wDate').value = W.date; $('#wText').value = W.text; $('#wHidden').checked = W.hidden;
+    $('#wErr').hidden = true;
+    renderPics();
+    openModal('#wModal');
+    setTimeout(() => $('#wTitle').focus(), 120);
+  }
+  function renderPics() {
+    if (W.cover >= W.images.length) W.cover = 0;
+    $('#wPics').innerHTML = W.images.map((p, i) =>
+      '<div class="pic' + (i === W.cover ? ' cover' : '') + '" data-i="' + i + '"><img src="' + esc(imgUrl(p)) + '" alt=""><span class="pic-badge">Обложка</span><div class="pic-act">' +
+      '<button type="button" data-p="cover" title="Сделать обложкой" aria-label="Сделать обложкой"><svg class="i"><use href="#i-star"/></svg></button>' +
+      '<button type="button" data-p="left" title="Левее" aria-label="Левее"' + (i === 0 ? ' disabled' : '') + '><svg class="i"><use href="#i-left"/></svg></button>' +
+      '<button type="button" data-p="right" title="Правее" aria-label="Правее"' + (i === W.images.length - 1 ? ' disabled' : '') + '><svg class="i"><use href="#i-right"/></svg></button>' +
+      '<button type="button" data-p="del" title="Убрать фото" aria-label="Убрать фото"><svg class="i"><use href="#i-x"/></svg></button></div></div>').join('');
+  }
+  $('#wPics').addEventListener('click', e => {
+    const b = e.target.closest('[data-p]'); if (!b) return;
+    const i = +b.closest('[data-i]').dataset.i, a = b.dataset.p, im = W.images;
+    const coverPath = im[W.cover];
+    if (a === 'cover') W.cover = i;
+    if (a === 'left' && i > 0) [im[i - 1], im[i]] = [im[i], im[i - 1]];
+    if (a === 'right' && i < im.length - 1) [im[i + 1], im[i]] = [im[i], im[i + 1]];
+    if (a === 'del') im.splice(i, 1);
+    if (a !== 'cover') W.cover = Math.max(0, im.indexOf(coverPath));
+    renderPics();
+  });
+  dropZone($('#wDrop'), $('#wFiles'), files => addFiles(files, 'works', path => { if (W) { W.images.push(path); renderPics(); } }));
+  $('#addWork').addEventListener('click', () => openWork(null));
+  $('#wSave').addEventListener('click', () => {
+    W.title = $('#wTitle').value.trim(); W.category = $('#wCat').value; W.object = $('#wObject').value.trim();
+    W.place = $('#wPlace').value.trim(); W.date = $('#wDate').value; W.text = $('#wText').value.trim(); W.hidden = $('#wHidden').checked;
+    const err = $('#wErr');
+    if (!W.title) { err.textContent = 'Укажите название работы.'; err.hidden = false; $('#wTitle').focus(); return; }
+    if (!W.images.length) { err.textContent = 'Добавьте хотя бы одно фото.'; err.hidden = false; return; }
+    const arr = S.content.works;
+    if (wIsNew) arr.unshift(W); else arr[arr.findIndex(x => x.id === W.id)] = W;
+    W = null;
+    closeModal('#wModal');
+    render();
+    toast(wIsNew ? 'Работа добавлена. Нажмите «Опубликовать на сайт», когда закончите.' : 'Изменения сохранены в черновик');
+  });
+
+  /* ---------- найденные вручную фото ---------- */
+  $('#foundAdd').addEventListener('click', () => {
+    const used = refs(S.content);
+    S.found.filter(p => !used.has(p)).forEach(p => {
+      if (p.startsWith('uploads/works/')) S.content.works.push({ id: uid('w'), title: titleFromFile(p) || 'Выполненная работа', category: 'power', object: '', place: '', date: '', text: '', images: [p], cover: 0, hidden: false });
+      else S.content.reviews.push({ id: uid('r'), image: p, name: '', object: '', date: '', text: '', hidden: false });
+    });
+    render();
+    toast('Фото добавлены в список — подпишите их и опубликуйте');
+  });
+
+  /* ---------- модальные окна ---------- */
+  let lastFocus = null;
+  function openModal(sel) { lastFocus = document.activeElement; const m = $(sel); m.classList.add('open'); m.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; }
+  function closeModal(sel) { const m = $(sel); m.classList.remove('open'); m.setAttribute('aria-hidden', 'true'); if (!$('.modal.open')) document.body.style.overflow = ''; if (lastFocus && lastFocus.focus) lastFocus.focus(); }
+  document.addEventListener('click', e => {
+    const c = e.target.closest('[data-close]'); if (c) closeModal('#' + c.closest('.modal').id);
+    if (e.target.closest('[data-help]')) openModal('#hModal');
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    const m = $$('.modal.open').filter(x => x.id !== 'pModal').pop(); if (m) closeModal('#' + m.id);
+  });
+  $('#helpBtn').addEventListener('click', () => openModal('#hModal'));
+
+  /* ---------- публикация ---------- */
+  function pm(state, title, text, frac, buttons) {
+    const ic = $('#pmIc');
+    ic.className = 'pm-ic' + (state === 'ok' ? ' ok' : state === 'bad' ? ' bad' : '');
+    ic.innerHTML = state === 'busy' ? '<span class="spin"></span>' : '<svg class="i"><use href="#' + (state === 'ok' ? 'i-check' : 'i-alert') + '"/></svg>';
+    $('#pmTitle').textContent = title; $('#pmText').innerHTML = text || '';
+    $('#pmProg').hidden = state !== 'busy'; $('#pmProg i').style.width = Math.round((frac || 0) * 100) + '%';
+    const bt = $('#pmBtns'); bt.innerHTML = buttons || ''; bt.hidden = !buttons;
+  }
+  async function publish() {
+    if (!dirty()) return;
+    const bad = S.content.reviews.find(r => !r.image && !r.text.trim());
+    if (bad) { toast('У отзыва без фото нужно заполнить текст — или удалите его.', true); $('.tab[data-tab=reviews]').click(); return; }
+    openModal('#pModal');
+    pm('busy', 'Публикуем…', 'Проверяем актуальную версию сайта', 0.05);
+    try {
+      const snap = await snapshot();
+      const paths = new Set(snap.items.map(x => x.path));
+      const cj = snap.items.find(x => x.path === 'data/content.json');
+      if ((cj ? cj.sha : null) !== S.contentSha &&
+        !confirm('Пока вы работали, данные сайта изменились в другом месте (например, с другого устройства). Опубликовать вашу версию поверх?')) {
+        closeModal('#pModal'); return;
+      }
+      const now = refs(S.content), before = refs(JSON.parse(S.original));
+      const uploads = [...S.pending].filter(([p]) => now.has(p) && !paths.has(p));
+      const entries = [];
+      for (let n = 0; n < uploads.length; n++) {
+        pm('busy', 'Публикуем…', 'Загружаем фото ' + (n + 1) + ' из ' + uploads.length, 0.1 + 0.75 * n / uploads.length);
+        const blob = await gh('POST', repoPath('/git/blobs'), { content: uploads[n][1], encoding: 'base64' });
+        entries.push({ path: uploads[n][0], mode: '100644', type: 'blob', sha: blob.sha });
+      }
+      const removed = [...before].filter(p => !now.has(p) && paths.has(p));
+      removed.forEach(p => entries.push({ path: p, mode: '100644', type: 'blob', sha: null }));
+      pm('busy', 'Публикуем…', 'Сохраняем изменения', 0.9);
+      const next = JSON.parse(JSON.stringify(S.content));
+      next.updated = new Date().toISOString(); next.repo = S.repo; next.branch = S.branch;
+      const jb = await gh('POST', repoPath('/git/blobs'), { content: b64.fromText(JSON.stringify(next, null, 2) + '\n'), encoding: 'base64' });
+      entries.push({ path: 'data/content.json', mode: '100644', type: 'blob', sha: jb.sha });
+      const tree = await gh('POST', repoPath('/git/trees'), { base_tree: snap.treeSha, tree: entries });
+      const commit = await gh('POST', repoPath('/git/commits'), { message: 'Обновление сайта через админку: ' + ($('#pbSum').textContent || 'изменения'), tree: tree.sha, parents: [snap.head] });
+      await gh('PATCH', repoPath('/git/refs/heads/' + encodeURIComponent(S.branch)), { sha: commit.sha });
+      S.content = next;
+      S.original = JSON.stringify(S.content);
+      S.contentSha = jb.sha;
+      S.pending.clear();
+      render();
+      pm('ok', 'Опубликовано!', 'Сайт обновится примерно через 1–2 минуты. Если изменений не видно — обновите страницу сайта.' + (removed.length ? '<br>Удалено старых фото: ' + removed.length + '.' : ''), 1,
+        '<a class="btn btn-primary" href="' + esc(siteUrl()) + '" target="_blank" rel="noopener"><svg class="i"><use href="#i-ext"/></svg>Открыть сайт</a><button class="btn btn-ghost" type="button" data-close>Продолжить</button>');
+    } catch (e) {
+      pm('bad', 'Не получилось опубликовать', esc(explain(e)) + '<br>Ваши изменения не потеряны — попробуйте ещё раз.', 0,
+        '<button class="btn btn-primary" type="button" id="pmRetry">Повторить</button><button class="btn btn-ghost" type="button" data-close>Закрыть</button>');
+      const rt = $('#pmRetry'); if (rt) rt.addEventListener('click', () => { closeModal('#pModal'); publish(); });
+    }
+  }
+  $('#publish').addEventListener('click', publish);
+  $('#discard').addEventListener('click', () => {
+    if (!confirm('Отменить все неопубликованные изменения?')) return;
+    S.content = JSON.parse(S.original); S.pending.clear(); render(); toast('Изменения отменены');
+  });
+
+  /* ---------- шапка ---------- */
+  $('#reloadBtn').addEventListener('click', async () => {
+    if (dirty() && !confirm('Есть неопубликованные изменения. Загрузить данные заново и потерять их?')) return;
+    try { await loadContent(); toast('Данные обновлены'); } catch (e) { toast(explain(e), true); }
+  });
+  $('#logoutBtn').addEventListener('click', () => {
+    if (dirty() && !confirm('Есть неопубликованные изменения. Всё равно выйти?')) return;
+    forgetLogin(); S.content = null; location.reload();
+  });
+  addEventListener('beforeunload', e => { if (dirty()) { e.preventDefault(); e.returnValue = ''; } });
+
+  /* ---------- старт ---------- */
+  const sv = savedLogin();
+  $('#lRepo').value = (sv && sv.repo) || guessRepo();
+  if (sv && sv.repo && sv.token) {
+    $('#lToken').value = sv.token;
+    const btn = $('#lGo'); btn.disabled = true; btn.textContent = 'Подключаемся…';
+    login(sv.repo, sv.token, true, true)
+      .catch(e => { $('#lErr').textContent = explain(e); $('#lErr').hidden = false; })
+      .finally(() => { btn.disabled = false; btn.textContent = 'Войти'; });
+  }
+})();
+</script>
+</body>
+</html>
