@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-29T07:51:09.467Z",
+  "updated": "2026-10-29T07:52:08.002Z",
   "repo": "ELeasing1/ips",
   "branch": "main",
   "works": [
@@ -19,5 +19,15 @@
       "hidden": false
     }
   ],
-  "reviews": []
+  "reviews": [
+    {
+      "id": "rmvt8vyy3zam4",
+      "image": "",
+      "name": "Тест",
+      "object": "тестовое",
+      "date": "2026-10",
+      "text": "тестовый отзыв",
+      "hidden": false
+    }
+  ]
 }
